@@ -110,7 +110,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
                 control={form.control} 
                 name="email" 
                 label="Email" 
-                placeholder="Your email addressw" 
+                placeholder="Your email address" 
                 />
             <FormField 
                 control={form.control} 
