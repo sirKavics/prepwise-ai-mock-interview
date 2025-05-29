@@ -4,7 +4,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import { vapi } from "@/lib/vapi.sdk";
+import { vapi }  from "@/lib/vapi.sdk";
+
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -65,13 +66,14 @@ const Agent = ({ userName, userId, type }: AgentProps) => {
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING);
 
-    await vapi.workflow.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+    await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
       variableValues: {
         username: userName,
         userid: userId,
       },
     });
   };
+
 
   const handleDisconnect = async () => {
     setCallStatus(CallStatus.FINISHED);
@@ -80,8 +82,7 @@ const Agent = ({ userName, userId, type }: AgentProps) => {
   };
 
   const latestMessage = messages[messages.length - 1]?.content;
-  const isCallInactiveOrFinished =
-    CallStatus.INACTIVE || callStatus === CallStatus.FINISHED;
+  const isCallInactiveOrFinished = callStatus === CallStatus.INACTIVE || callStatus === CallStatus.FINISHED;
 
   return (
     <>
